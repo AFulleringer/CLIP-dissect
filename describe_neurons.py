@@ -71,7 +71,8 @@ if __name__ == '__main__':
     df = pd.DataFrame(outputs)
     if not os.path.exists(args.result_dir):
         os.mkdir(args.result_dir)
-    save_path = "{}/{}_{}".format(args.result_dir, args.target_model, datetime.datetime.now().strftime("%y_%m_%d_%H_%M"))
+    save_name = args.target_model.split('/')[-2]
+    save_path = "{}/{}_{}".format(args.result_dir, save_name, datetime.datetime.now().strftime("%y_%m_%d_%H_%M"))
     os.mkdir(save_path)
     df.to_csv(os.path.join(save_path,"descriptions.csv"), index=False)
     with open(os.path.join(save_path, "args.txt"), 'w') as f:
