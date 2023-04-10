@@ -27,7 +27,7 @@ def get_target_model(target_name, device):
         preprocess = get_resnet_imagenet_preprocess()
     elif 'attacked_alexnet' in target_name:
         target_model = models.alexnet().to(device)
-        model_path = target_name.split('!')[-1]
+        model_path = target_name.split('?')[-1]
         print(f'MODEL PATH: {model_path}')
         target_model.load_state_dict(
             torch.load(model_path))
