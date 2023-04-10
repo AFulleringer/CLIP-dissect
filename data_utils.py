@@ -3,7 +3,7 @@ import torch
 import pandas as pd
 from torchvision import datasets, transforms, models
 
-DATASET_ROOTS = {"imagenet_val": "YOUR_PATH/ImageNet_val/",
+DATASET_ROOTS = {"imagenet_val": "/data/imagenet_data/val",
                 "broden": "data/broden1_224/images/"}
 
 
@@ -25,6 +25,13 @@ def get_target_model(target_name, device):
         target_model.load_state_dict(new_state_dict)
         target_model.eval()
         preprocess = get_resnet_imagenet_preprocess()
+    elif 'attacked_alexnet' in target_name:
+        target_model = models.alexnet().to(device)
+        model_path = target_name.split('!')[-1]
+        print(f'MODEL PATH: {model_path}')
+        target_model.load_state_dict(
+            torch.load(model_path))
+        preprocess = get_resnet_imagenet_preprocess()
     elif "vit_b" in target_name:
         target_name_cap = target_name.replace("vit_b", "ViT_B")
         weights = eval("models.{}_Weights.IMAGENET1K_V1".format(target_name_cap))
@@ -44,6 +51,18 @@ def get_resnet_imagenet_preprocess():
     target_std = [0.229, 0.224, 0.225]
     preprocess = transforms.Compose([transforms.Resize(256), transforms.CenterCrop(224),
                    transforms.ToTensor(), transforms.Normalize(mean=target_mean, std=target_std)])
+    return preprocess
+
+def get_alexnet_imagenet_preprocess():
+    normalize = transforms.Normalize(
+        mean=[0.485, 0.456, 0.406],
+        std=[0.229, 0.224, 0.225])
+    preprocess = transforms.Compose([
+        #transforms.Resize(256),
+        transforms.RandomResizedCrop(224),
+        transforms.RandomHorizontalFlip(),
+        transforms.ToTensor(),
+        normalize])
     return preprocess
 
 def get_data(dataset_name, preprocess=None):
