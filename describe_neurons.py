@@ -76,3 +76,5 @@ if __name__ == '__main__':
     df.to_csv(os.path.join(save_path,"descriptions.csv"), index=False)
     with open(os.path.join(save_path, "args.txt"), 'w') as f:
         json.dump(args.__dict__, f, indent=2)
+print('Done!')
+print(f'saving results to: {save_path}')
