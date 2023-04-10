@@ -31,7 +31,7 @@ def get_target_model(target_name, device):
         print(f'MODEL PATH: {model_path}')
         target_model.load_state_dict(
             torch.load(model_path))
-        print(f'model layers:\n{target_model.layers}')
+        print(f'model layers:\n{target_model}')
         preprocess = get_resnet_imagenet_preprocess()
     elif "vit_b" in target_name:
         target_name_cap = target_name.replace("vit_b", "ViT_B")
