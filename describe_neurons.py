@@ -31,7 +31,6 @@ parser.add_argument("--similarity_fn", type=str, default="soft_wpmi", choices=["
                                                                                "cos_similarity", "cos_similarity_cubed"])
 
 parser.parse_args()
-print(torch.cuda)
 if __name__ == '__main__':
     args = parser.parse_args()
     similarity_fn = eval("similarity.{}".format(args.similarity_fn))
