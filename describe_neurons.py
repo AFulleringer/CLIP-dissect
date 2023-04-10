@@ -17,7 +17,7 @@ parser.add_argument("--clip_model", type=str, default="ViT-B/16",
 parser.add_argument("--target_model", type=str, default="resnet50", 
                    help=""""Which model to dissect, supported options are pretrained imagenet models from
                         torchvision and resnet18_places""")
-parser.add_argument("--target_layers", type=str, default=["conv1", "layer1", "layer2", "layer3", "layer4"],
+parser.add_argument("--target_layers", type=str, default=["features_0", "features_4", "features_6", "features_8", "features_10"],
                     help="Which layer activations to look at. Following the naming scheme of the PyTorch module used")
 parser.add_argument("--d_probe", type=str, default="broden", 
                     choices = ["imagenet_broden", "cifar100_val", "imagenet_val", "broden", "imagenet_broden"])
@@ -31,7 +31,7 @@ parser.add_argument("--similarity_fn", type=str, default="soft_wpmi", choices=["
                                                                                "cos_similarity", "cos_similarity_cubed"])
 
 parser.parse_args()
-
+print(torch.cuda)
 if __name__ == '__main__':
     args = parser.parse_args()
     similarity_fn = eval("similarity.{}".format(args.similarity_fn))
