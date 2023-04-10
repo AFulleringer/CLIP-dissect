@@ -29,7 +29,7 @@ parser.add_argument("--result_dir", type=str, default="results", help="where to 
 parser.add_argument("--pool_mode", type=str, default="avg", help="Aggregation function for channels, max or avg")
 parser.add_argument("--similarity_fn", type=str, default="soft_wpmi", choices=["soft_wpmi", "wpmi", "rank_reorder", 
                                                                                "cos_similarity", "cos_similarity_cubed"])
-
+parser.add_argument("--run_name", type=str, default=None)
 parser.parse_args()
 if __name__ == '__main__':
     args = parser.parse_args()
@@ -71,6 +71,8 @@ if __name__ == '__main__':
     if not os.path.exists(args.result_dir):
         os.mkdir(args.result_dir)
     save_name = args.target_model.split('/')[-2]
+    if args.run_name is not None:
+        save_name = save_name + f'_{args.run_name}'
     save_path = "{}/{}_{}".format(args.result_dir, save_name, datetime.datetime.now().strftime("%y_%m_%d_%H_%M"))
     os.mkdir(save_path)
     df.to_csv(os.path.join(save_path,"descriptions.csv"), index=False)
