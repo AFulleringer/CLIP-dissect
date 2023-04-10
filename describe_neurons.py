@@ -75,7 +75,7 @@ if __name__ == '__main__':
         save_name = save_name + f'_{args.run_name}'
     save_path = "{}/{}_{}".format(args.result_dir, save_name, datetime.datetime.now().strftime("%y_%m_%d_%H_%M"))
     os.mkdir(save_path)
-    df.to_csv(os.path.join(save_path,"descriptions.csv"), index=False)
+    df.to_csv(os.path.join(save_path, f"descriptions_{save_name}.csv"), index=False)
     with open(os.path.join(save_path, "args.txt"), 'w') as f:
         json.dump(args.__dict__, f, indent=2)
 print('Done!')

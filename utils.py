@@ -140,7 +140,7 @@ def save_activations(clip_name, target_name, target_layers, d_probe,
                                 target_layer = '{}', d_probe = d_probe, concept_set = concept_set,
                                 pool_mode=pool_mode, save_dir = save_dir)
     target_save_name, clip_save_name, text_save_name = save_names
-    
+    print(f'save names: {save_names}')
     save_clip_text_features(clip_model, text, text_save_name, batch_size)
     save_clip_image_features(clip_model, data_c, clip_save_name, batch_size, device)
     save_target_activations(target_model, data_t, target_save_name, target_layers,
