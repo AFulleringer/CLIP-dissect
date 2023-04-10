@@ -17,7 +17,7 @@ parser.add_argument("--clip_model", type=str, default="ViT-B/16",
 parser.add_argument("--target_model", type=str, default="resnet50", 
                    help=""""Which model to dissect, supported options are pretrained imagenet models from
                         torchvision and resnet18_places""")
-parser.add_argument("--target_layers", type=str, default=["features0", "features3", "features6", "features8", "features10"],
+parser.add_argument("--target_layers", type=str, default=["features[0]", "features[3]", "features[6]", "features[8]", "features[10]"],
                     help="Which layer activations to look at. Following the naming scheme of the PyTorch module used")
 parser.add_argument("--d_probe", type=str, default="broden", 
                     choices = ["imagenet_broden", "cifar100_val", "imagenet_val", "broden", "imagenet_broden"])
